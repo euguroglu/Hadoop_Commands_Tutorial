@@ -1,0 +1,28 @@
+Put command
+hdfs dfs -put <localpath> <hdfs path>
+
+List command
+hdfs dfs -ls <hdfs path>
+
+Cat command (txt format)
+hdfs dfs -cat <hdfs path of file>
+
+Tail command (To check only limited command, end of file)
+hdfs dfs -tail <hdfs path of file>
+
+Create dir command
+hdfs dfs -mkdir <hdfs path>
+
+Move file location commadn
+hdfs dfs -mv <source path> <target path>
+
+Giving permission command
+hdfs dfs -chmod 777 <hdfs path>
+
+Remove entire directory command
+hdfs dfs -rm -r <hdfs path>
+
+Get command(file from hdfs to local)
+hdfs dfs -get <hdfs path> <local destination path>
+
+
