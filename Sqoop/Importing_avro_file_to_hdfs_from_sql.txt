@@ -3,3 +3,5 @@ sqoop import -Dmapreduce.job.user.classpath.first=true \
 --username root --password 03574526 --table orders \
 --target-dir /user/sample/avro \
 --as-avrodatafile
+
+hadoop jar ./avro-tools-1.8.2.jar\?raw\=true cat tojson /user/sample/avro3/part-m-00000.avro

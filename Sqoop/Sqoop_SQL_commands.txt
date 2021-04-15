@@ -1,0 +1,19 @@
+CHECKING DATABASES USING SQOOP
+sqoop list-databases --connect jdbc:mysql://localhost:3306 --username root --password 03574526
+CHECKING TABLES USING SQOOP
+sqoop list-tables --connect jdbc:mysql://localhost:3306/retail_db --username root --password 03574526
+CHECKING SCHEMA
+sqoop eval --connect jdbc:mysql://localhost:3306/retail_db --username root --password 03574526 --query "describe customers"
+
+SQOOP EXPORT
+sqoop export --connect jdbc:mysql://localhost:3306/retail_db --username root --password 03574526 --table customer_exported --export-dir /user/sample/customer-export --input-null-string 'EMPTY' --input-null-non-string 0 
+
+
+SQOOP SELECTIVE IMPORT
+sqoop import \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username root \
+--password 03574526 \
+--table customers \
+--target-dir /user/sample/customer-export \
+--columns "customer_id,customer_fname,customer_lname,customer_street"

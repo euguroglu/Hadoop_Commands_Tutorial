@@ -1,0 +1,63 @@
+Problem 1
+Run Sqoop import to ingest data from customers table. Place the customers
+files in HDFS directory "/user/customers/practice1 ". Load only customer_id,customer_fname,
+customer_lname,customer_city. Load those customers whose lives in
+“Brownsville” or “Cagaus” city. Use only two mappers
+
+
+Answer1
+sqoop import \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username root \
+--password 03574526 \
+--table customers \
+--target-dir /user/customers/practice1 \
+--columns "customer_id,customer_fname,customer_lname,customer_city" \
+--where "customer_city='Brownsville' or 'Cagaus'"
+
+Problem 2
+Step 1: Import Orders table into HDFS
+Run sqoop import command to ingest data from orders table.
+Use parquet format and snappy compression.
+place the output in /user/orders/practice2
+
+Answer step 1
+sqoop import \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username root \
+--password 03574526 \
+--table orders \
+--target-dir /user/orders/practice2 \
+--as-parquetfile \
+--compress \
+--compression-codec snappy
+
+Step 2: Write Sqoop Job for Incremental Append from orders table
+Write a Sqoop job to run incremental import from orders table
+place the output in /user/orders/practice2
+Use parquet format and snappy compression.
+Use the order_id as the check-column for incremental append.
+last-value should be your max(order_id) in orders table
+use only two mappers
+
+Answer step 2
+sqoop job –-create order_update_job3 \
+-- import \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username root \
+--password 03574526 \
+--table orders \
+--target-dir /user/orders/practice2 \
+--incremental append \
+--check-column order_id \
+--last-value 100006 \
+--compress \
+--compression-codec snappy \
+--as-parquetfile \
+-m 2
+
+Step3: Insert new record into orders table
+Open MySQL and insert below records in orders table in retail_db database.
+insert into orders (order_id,order_customer_id,order_date,order_status) values(100010,4,'2017-11-07 10:02:00','CLOSED');
+insert into orders (order_id,order_customer_id,order_date,order_status) values(100011,5,'2017-11-07 10:02:00','CLOSED');
+insert into orders (order_id,order_customer_id,order_date,order_status) values(100012,6,'2017-11-07 10:02:00','CLOSED');
