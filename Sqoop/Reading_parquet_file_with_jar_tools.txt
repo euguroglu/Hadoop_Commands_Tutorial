@@ -1,1 +1,2 @@
 hadoop jar ./parquet tools 1.8.2.jar --cat json <parquet file path>
+hadoop jar ./parquet-tools-1.10.0.jar\?raw\=true cat --json /user/sample/parquet/54f82764-9f03-4a5c-bd69-e2e6698055f4.parquet
