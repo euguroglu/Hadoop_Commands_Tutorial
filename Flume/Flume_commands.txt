@@ -1,2 +1,4 @@
 1)Execlogger command
 flume-ng agent -n ExecLoggerAgent -f f.config
+2)twitter hdfs 
+flume-ng agent -n TwitterHdfsAgent -f f.config
